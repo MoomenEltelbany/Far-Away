@@ -13,6 +13,12 @@ body {
     font-weight: 500;
 }
 
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
 header {
     background-color: #f4a226;
     min-height: 100px;
@@ -78,4 +84,65 @@ header {
     button:hover {
         background-color: #47bf99;
     }
+}
+
+.list-body {
+    background-color: #5a3e2b;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    ul {
+        font-size: 1.2rem;
+        color: white;
+        flex-grow: 1;
+        margin: 15px;
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+
+        li {
+            height: fit-content;
+            padding: 10px 20px;
+            background-color: #f4a226;
+            border: none;
+            border-radius: 8px;
+
+            input {
+                margin-right: 8px;
+            }
+
+            .active {
+                text-decoration: line-through;
+            }
+        }
+    }
+
+    button {
+        width: fit-content;
+        background-color: #ffebb5;
+        color: #5a3e2b;
+        margin: 15px auto;
+        padding: 10px 20px;
+        border-radius: 18px;
+        border: none;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background-color: #ad9b68;
+        color: white;
+    }
+}
+
+footer {
+    background-color: #76c7ae;
+    display: flex;
+    font-size: 1.8rem;
+    display: flex;
+    justify-content: center;
+    padding: 15px;
 }

@@ -24,9 +24,45 @@ function App() {
                 </form>
             </section>
             <main className="list-body">
+                <ul>
+                    <li>
+                        <input type="checkbox" />
+                        <label for="myCheckbox">2 Shirts</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" />
+                        <label for="myCheckbox" className="active">
+                            2 Shirts
+                        </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" />
+                        <label for="myCheckbox">2 Shirts</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" />
+                        <label for="myCheckbox">2 Shirts</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" />
+                        <label for="myCheckbox">2 Shirts</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" />
+                        <label for="myCheckbox">2 Shirts</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" />
+                        <label for="myCheckbox">2 Shirts</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" />
+                        <label for="myCheckbox">2 Shirts</label>
+                    </li>
+                </ul>
                 <button>Clear list</button>
             </main>
-            <footer>Start adding some items to your packing list</footer>
+            <footer>Start adding some items to your packing list 🚀</footer>
         </div>
     );
 }
