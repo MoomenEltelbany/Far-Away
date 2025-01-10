@@ -1,9 +1,48 @@
 import "./App.css";
 
+import { useState } from "react";
+
+const List = [
+    {
+        id: 1,
+        name: "Shorts",
+        count: "3",
+        isPacked: false,
+    },
+    {
+        id: 2,
+        name: "Shorts",
+        count: "3",
+        isPacked: false,
+    },
+    {
+        id: 3,
+        name: "Shorts",
+        count: "3",
+        isPacked: false,
+    },
+];
+
 function App() {
+    const [travelList, setTravelList] = useState(List);
+
     return (
         <div className="container">
-            <header>🏝️ Far away 🧳</header>
+            <Header />
+            <Form />
+            <ShowTravelList travelList={travelList} />
+            <Footer />
+        </div>
+    );
+}
+
+function Header() {
+    return <header>🏝️ Far away 🧳</header>;
+}
+
+function Form() {
+    return (
+        <>
             <section className="add-form">
                 <p>What do you need for your trip 😍?</p>
                 <form>
@@ -23,48 +62,56 @@ function App() {
                     <button type="submit">Add</button>
                 </form>
             </section>
-            <main className="list-body">
-                <ul>
-                    <li>
-                        <input type="checkbox" />
-                        <label for="myCheckbox">2 Shirts</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" />
-                        <label for="myCheckbox" className="active">
-                            2 Shirts
-                        </label>
-                    </li>
-                    <li>
-                        <input type="checkbox" />
-                        <label for="myCheckbox">2 Shirts</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" />
-                        <label for="myCheckbox">2 Shirts</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" />
-                        <label for="myCheckbox">2 Shirts</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" />
-                        <label for="myCheckbox">2 Shirts</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" />
-                        <label for="myCheckbox">2 Shirts</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" />
-                        <label for="myCheckbox">2 Shirts</label>
-                    </li>
-                </ul>
-                <button>Clear list</button>
-            </main>
-            <footer>Start adding some items to your packing list 🚀</footer>
-        </div>
+        </>
     );
+}
+
+function ShowTravelList() {
+    return (
+        <main className="list-body">
+            <ul>
+                <li>
+                    <input type="checkbox" />
+                    <label for="myCheckbox">2 Shirts</label>
+                </li>
+                <li>
+                    <input type="checkbox" />
+                    <label for="myCheckbox" className="active">
+                        2 Shirts
+                    </label>
+                </li>
+                <li>
+                    <input type="checkbox" />
+                    <label for="myCheckbox">2 Shirts</label>
+                </li>
+                <li>
+                    <input type="checkbox" />
+                    <label for="myCheckbox">2 Shirts</label>
+                </li>
+                <li>
+                    <input type="checkbox" />
+                    <label for="myCheckbox">2 Shirts</label>
+                </li>
+                <li>
+                    <input type="checkbox" />
+                    <label for="myCheckbox">2 Shirts</label>
+                </li>
+                <li>
+                    <input type="checkbox" />
+                    <label for="myCheckbox">2 Shirts</label>
+                </li>
+                <li>
+                    <input type="checkbox" />
+                    <label for="myCheckbox">2 Shirts</label>
+                </li>
+            </ul>
+            <button>Clear list</button>
+        </main>
+    );
+}
+
+function Footer() {
+    return <footer>Start adding some items to your packing list 🚀</footer>;
 }
 
 export default App;
