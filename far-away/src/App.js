@@ -2,32 +2,14 @@ import "./App.css";
 
 import { useState } from "react";
 
-const List = [
-    {
-        id: 1,
-        name: "Shorts",
-        count: "3",
-        isPacked: false,
-    },
-    {
-        id: 2,
-        name: "Blouse",
-        count: "4",
-        isPacked: false,
-    },
-    {
-        id: 3,
-        name: "Cream",
-        count: "1",
-        isPacked: false,
-    },
-];
-
 function App() {
     const [travelList, setTravelList] = useState([]);
     const [count, setCount] = useState("1");
     const [item, setItem] = useState("");
-    const [isActive, setIsActive] = useState(false);
+
+    function handleDeleteItem(id) {
+        setTravelList(travelList.filter((item) => item.key !== id));
+    }
 
     return (
         <div className="container">
@@ -39,12 +21,11 @@ function App() {
                 setItem={setItem}
                 handleAddItem={setTravelList}
                 travelList={travelList}
-                isActive={isActive}
-                setIsActive={setIsActive}
             />
             <ShowTravelList
                 travelList={travelList}
                 setTravelList={setTravelList}
+                handleDeleteItem={handleDeleteItem}
             />
             <Footer travelList={travelList} />
         </div>
@@ -63,7 +44,7 @@ function Form({ count, setCount, item, setItem, handleAddItem, travelList }) {
 
         const uniqueKey = `${item}-${Date.now()}`;
 
-        const newItem = { name: item, count, key: uniqueKey, isPacked: false };
+        const newItem = { name: item, count, key: uniqueKey };
 
         handleAddItem([...travelList, newItem]);
 
@@ -80,16 +61,11 @@ function Form({ count, setCount, item, setItem, handleAddItem, travelList }) {
                         value={count}
                         onChange={(e) => setCount(e.target.value)}
                     >
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
+                        {Array.from({ length: 10 }, (_, i) => (
+                            <option key={i + 1} value={i + 1}>
+                                {i + 1}
+                            </option>
+                        ))}
                     </select>
                     <input
                         type="text"
@@ -106,17 +82,13 @@ function Form({ count, setCount, item, setItem, handleAddItem, travelList }) {
     );
 }
 
-function ShowTravelList({ travelList, setTravelList, isActive, setIsActive }) {
+function ShowTravelList({ travelList, setTravelList, handleDeleteItem }) {
     function handleDeleteList() {
         const userResponse = window.confirm(
             "Do you want to proceed with clearing the list?"
         );
 
         if (userResponse) setTravelList([]);
-    }
-
-    function handleCheckedItem() {
-        setIsActive(!isActive);
     }
 
     return (
@@ -131,7 +103,9 @@ function ShowTravelList({ travelList, setTravelList, isActive, setIsActive }) {
                             >
                                 {item.count} {item.name}
                             </label>
-                            <button>❌</button>
+                            <button onClick={() => handleDeleteItem(item.key)}>
+                                ❌
+                            </button>
                         </li>
                     );
                 })}
@@ -148,8 +122,7 @@ function Footer({ travelList }) {
         <>
             {travelList.length > 0 ? (
                 <footer>
-                    You have added {travelList.length} item(s) in your list and
-                    you packed X% of the list
+                    You have added {travelList.length} item(s) in your list
                 </footer>
             ) : (
                 <footer>Start adding some items to your packing list 🚀</footer>
