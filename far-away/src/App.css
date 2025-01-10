@@ -114,13 +114,19 @@ header {
                 margin-right: 8px;
             }
 
-            .active {
-                text-decoration: line-through;
+            button {
+                margin-left: 8px;
+                padding: 2px 4px;
+                border-radius: 3px;
+                border: none;
+                background-color: #f4a226;
+                cursor: pointer;
+                transition: 0.3s;
             }
         }
     }
 
-    button {
+    .clear-btn {
         width: fit-content;
         background-color: #ffebb5;
         color: #5a3e2b;

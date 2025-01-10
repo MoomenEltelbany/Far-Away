@@ -125,21 +125,20 @@ function ShowTravelList({ travelList, setTravelList, isActive, setIsActive }) {
                 {travelList.map((item) => {
                     return (
                         <li key={item.key}>
-                            <input
-                                type="checkbox"
-                                onChange={handleCheckedItem}
-                            />
                             <label
                                 htmlFor="myCheckbox"
                                 className={item.isPacked ? "active" : ""}
                             >
                                 {item.count} {item.name}
                             </label>
+                            <button>❌</button>
                         </li>
                     );
                 })}
             </ul>
-            <button onClick={handleDeleteList}>Clear list</button>
+            <button className="clear-btn" onClick={handleDeleteList}>
+                Clear list
+            </button>
         </main>
     );
 }
