@@ -11,27 +11,36 @@ const List = [
     },
     {
         id: 2,
-        name: "Shorts",
-        count: "3",
+        name: "Blouse",
+        count: "4",
         isPacked: false,
     },
     {
         id: 3,
-        name: "Shorts",
-        count: "3",
+        name: "Cream",
+        count: "1",
         isPacked: false,
     },
 ];
 
 function App() {
-    const [travelList, setTravelList] = useState(List);
+    const [travelList, setTravelList] = useState([]);
+    const [count, setCount] = useState("1");
+    const [item, setItem] = useState("");
 
     return (
         <div className="container">
             <Header />
-            <Form />
+            <Form
+                count={count}
+                setCount={setCount}
+                item={item}
+                setItem={setItem}
+                handleAddItem={setTravelList}
+                travelList={travelList}
+            />
             <ShowTravelList travelList={travelList} />
-            <Footer />
+            <Footer travelList={travelList} />
         </div>
     );
 }
@@ -40,13 +49,31 @@ function Header() {
     return <header>🏝️ Far away 🧳</header>;
 }
 
-function Form() {
+function Form({ count, setCount, item, setItem, handleAddItem, travelList }) {
+    function addItemToList(e) {
+        e.preventDefault();
+
+        if (item.trim() === "") return;
+
+        const uniqueKey = `${item}-${Date.now()}`;
+
+        const newItem = { name: item, count, key: uniqueKey, isPacked: false };
+
+        handleAddItem([...travelList, newItem]);
+
+        setItem("");
+        setCount("1");
+    }
+
     return (
         <>
             <section className="add-form">
                 <p>What do you need for your trip 😍?</p>
                 <form>
-                    <select>
+                    <select
+                        value={count}
+                        onChange={(e) => setCount(e.target.value)}
+                    >
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -58,60 +85,54 @@ function Form() {
                         <option value="9">9</option>
                         <option value="10">10</option>
                     </select>
-                    <input type="text" placeholder="item..." />
-                    <button type="submit">Add</button>
+                    <input
+                        type="text"
+                        placeholder="item..."
+                        value={item}
+                        onChange={(e) => setItem(e.target.value)}
+                    />
+                    <button type="submit" onClick={(e) => addItemToList(e)}>
+                        Add
+                    </button>
                 </form>
             </section>
         </>
     );
 }
 
-function ShowTravelList() {
+function ShowTravelList({ travelList }) {
     return (
         <main className="list-body">
             <ul>
-                <li>
-                    <input type="checkbox" />
-                    <label for="myCheckbox">2 Shirts</label>
-                </li>
-                <li>
-                    <input type="checkbox" />
-                    <label for="myCheckbox" className="active">
-                        2 Shirts
-                    </label>
-                </li>
-                <li>
-                    <input type="checkbox" />
-                    <label for="myCheckbox">2 Shirts</label>
-                </li>
-                <li>
-                    <input type="checkbox" />
-                    <label for="myCheckbox">2 Shirts</label>
-                </li>
-                <li>
-                    <input type="checkbox" />
-                    <label for="myCheckbox">2 Shirts</label>
-                </li>
-                <li>
-                    <input type="checkbox" />
-                    <label for="myCheckbox">2 Shirts</label>
-                </li>
-                <li>
-                    <input type="checkbox" />
-                    <label for="myCheckbox">2 Shirts</label>
-                </li>
-                <li>
-                    <input type="checkbox" />
-                    <label for="myCheckbox">2 Shirts</label>
-                </li>
+                {travelList.map((item) => {
+                    return (
+                        <li key={item.key}>
+                            <input type="checkbox" />
+                            <label htmlFor="myCheckbox">
+                                {item.count} {item.name}
+                            </label>
+                        </li>
+                    );
+                })}
             </ul>
             <button>Clear list</button>
         </main>
     );
 }
 
-function Footer() {
-    return <footer>Start adding some items to your packing list 🚀</footer>;
+function Footer({ travelList }) {
+    return (
+        <>
+            {travelList.length > 0 ? (
+                <footer>
+                    You have added {travelList.length} item(s) in your list and
+                    you finished X% of the list
+                </footer>
+            ) : (
+                <footer>Start adding some items to your packing list 🚀</footer>
+            )}
+        </>
+    );
 }
 
 export default App;
