@@ -27,6 +27,7 @@ function App() {
     const [travelList, setTravelList] = useState([]);
     const [count, setCount] = useState("1");
     const [item, setItem] = useState("");
+    const [isActive, setIsActive] = useState(false);
 
     return (
         <div className="container">
@@ -38,8 +39,13 @@ function App() {
                 setItem={setItem}
                 handleAddItem={setTravelList}
                 travelList={travelList}
+                isActive={isActive}
+                setIsActive={setIsActive}
             />
-            <ShowTravelList travelList={travelList} />
+            <ShowTravelList
+                travelList={travelList}
+                setTravelList={setTravelList}
+            />
             <Footer travelList={travelList} />
         </div>
     );
@@ -100,22 +106,40 @@ function Form({ count, setCount, item, setItem, handleAddItem, travelList }) {
     );
 }
 
-function ShowTravelList({ travelList }) {
+function ShowTravelList({ travelList, setTravelList, isActive, setIsActive }) {
+    function handleDeleteList() {
+        const userResponse = window.confirm(
+            "Do you want to proceed with clearing the list?"
+        );
+
+        if (userResponse) setTravelList([]);
+    }
+
+    function handleCheckedItem() {
+        setIsActive(!isActive);
+    }
+
     return (
         <main className="list-body">
             <ul>
                 {travelList.map((item) => {
                     return (
                         <li key={item.key}>
-                            <input type="checkbox" />
-                            <label htmlFor="myCheckbox">
+                            <input
+                                type="checkbox"
+                                onChange={handleCheckedItem}
+                            />
+                            <label
+                                htmlFor="myCheckbox"
+                                className={item.isPacked ? "active" : ""}
+                            >
                                 {item.count} {item.name}
                             </label>
                         </li>
                     );
                 })}
             </ul>
-            <button>Clear list</button>
+            <button onClick={handleDeleteList}>Clear list</button>
         </main>
     );
 }
@@ -126,7 +150,7 @@ function Footer({ travelList }) {
             {travelList.length > 0 ? (
                 <footer>
                     You have added {travelList.length} item(s) in your list and
-                    you finished X% of the list
+                    you packed X% of the list
                 </footer>
             ) : (
                 <footer>Start adding some items to your packing list 🚀</footer>
