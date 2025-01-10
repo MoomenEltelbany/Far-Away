@@ -4,8 +4,6 @@ import { useState } from "react";
 
 function App() {
     const [travelList, setTravelList] = useState([]);
-    const [count, setCount] = useState("1");
-    const [item, setItem] = useState("");
 
     function handleDeleteItem(id) {
         setTravelList(travelList.filter((item) => item.key !== id));
@@ -14,14 +12,7 @@ function App() {
     return (
         <div className="container">
             <Header />
-            <Form
-                count={count}
-                setCount={setCount}
-                item={item}
-                setItem={setItem}
-                handleAddItem={setTravelList}
-                travelList={travelList}
-            />
+            <Form handleAddItem={setTravelList} travelList={travelList} />
             <ShowTravelList
                 travelList={travelList}
                 setTravelList={setTravelList}
@@ -36,7 +27,10 @@ function Header() {
     return <header>🏝️ Far away 🧳</header>;
 }
 
-function Form({ count, setCount, item, setItem, handleAddItem, travelList }) {
+function Form({ handleAddItem, travelList }) {
+    const [count, setCount] = useState("1");
+    const [item, setItem] = useState("");
+
     function addItemToList(e) {
         e.preventDefault();
 
@@ -61,7 +55,7 @@ function Form({ count, setCount, item, setItem, handleAddItem, travelList }) {
                         value={count}
                         onChange={(e) => setCount(e.target.value)}
                     >
-                        {Array.from({ length: 10 }, (_, i) => (
+                        {Array.from({ length: 20 }, (_, i) => (
                             <option key={i + 1} value={i + 1}>
                                 {i + 1}
                             </option>
